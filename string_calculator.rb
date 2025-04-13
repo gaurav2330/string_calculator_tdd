@@ -5,7 +5,13 @@ class StringCalculator
     delimiter = /,|\n/
     if numbers.start_with?('//')
       parts = numbers.split("\n", 2)
-      delimiter = Regexp.new(Regexp.escape(parts[0][2..]))
+
+      delimiter = if parts[0].include?("[")
+                    Regexp.new(parts[0].scan(/\[([^\]]+)\]/).flatten.map { |d| Regexp.escape(d) }.join("|"))
+                  else
+                    Regexp.new(Regexp.escape(parts[0][2..]))
+                  end
+
       numbers = parts[1]
     end
 
