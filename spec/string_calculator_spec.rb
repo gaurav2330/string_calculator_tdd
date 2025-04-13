@@ -18,4 +18,9 @@ RSpec.describe StringCalculator do
   it 'returns the sum of an unknown amount of numbers' do
     expect(calculator.add('1,2,3,4,5')).to eq(15)
   end
+
+  it 'handles new lines as delimiters' do
+    expect(calculator.add("1\n2,3")).to eq(6)
+  end
+  
 end
